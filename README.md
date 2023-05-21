@@ -13,6 +13,7 @@
 * [Работа на 4 - 5 баллов](https://github.com/mperestoronin/OS_HW3/tree/main/for_4_grade)
 * [Работа на 6 - 7 баллов](https://github.com/mperestoronin/OS_HW3/tree/main/for_6-7_grade)
 * [Работа на 8 баллов](https://github.com/mperestoronin/OS_HW3/tree/main/for_8_grade)
+
 Каждая папка содержит .с файлы с кодом соответсвующей программы, а также readme.md файл, содержащий краткое описание работы программы, а также фотоотчет в самом низу. На фотоотчете видно результаты работы программы.
 ## Описание выполненной работы:
 ### Введение
