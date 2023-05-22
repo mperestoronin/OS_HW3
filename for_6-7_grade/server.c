@@ -14,10 +14,8 @@
 int flower_states[FLOWERS];
 pthread_mutex_t flower_mutexes[FLOWERS];
 
-// Changes start here
 int spectator_present = 0;  // This flag is used to mark when the spectator has connected
 int spectator_sockfd;       // This is the file descriptor for the spectator's socket
-// Changes end here
 
 void error(const char *msg) {
     perror(msg);
@@ -56,12 +54,10 @@ void *handle_gardener(void *arg) {
             n = write(newsockfd, buffer, strlen(buffer)); // send -1 to client
             if (n < 0) error("ERROR writing to socket");
 
-            // Changes start here
             // also inform spectator
             sprintf(buffer, "Gardener %d has finished watering\n", newsockfd);
             n = write(spectator_sockfd, buffer, strlen(buffer));
             if (n < 0) error("ERROR writing to spectator");
-            // Changes end here
 
             break;
         }
@@ -70,12 +66,10 @@ void *handle_gardener(void *arg) {
         n = write(newsockfd, buffer, strlen(buffer)); // send flower index to client
         if (n < 0) error("ERROR writing to socket");
 
-        // Changes start here
         // inform spectator
         sprintf(buffer, "Gardener %d is watering flower %d\n", newsockfd, flower_index);
         n = write(spectator_sockfd, buffer, strlen(buffer));
         if (n < 0) error("ERROR writing to spectator");
-        // Changes end here
 
         bzero(buffer, 256);
         n = read(newsockfd, buffer, 255); // wait for client to confirm watering
@@ -123,7 +117,6 @@ int main(int argc, char *argv[]) {
         if (*newsockfd < 0) 
             error("ERROR on accept");
 
-        // Changes start here
         if (!spectator_present) {
             spectator_sockfd = *newsockfd;
             spectator_present = 1;
@@ -131,7 +124,6 @@ int main(int argc, char *argv[]) {
             pthread_t thread;
             pthread_create(&thread, NULL, handle_gardener, newsockfd);
         }
-        // Changes end here
     }
 
     close(sockfd);
